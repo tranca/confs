@@ -44,8 +44,26 @@ alias rd='rmdir'
 alias sd='sudo poweroff'
 alias rb='sudo reboot'
 alias vol='alsamixer'
-alias update='sudo apt-get update && sudo apt-get upgrade'
-alias install='sudo apt-get install'
+
+if [ -f /etc/lsb-release ]; then
+    . /etc/lsb-release
+    OS=$DISTRIB_ID
+elif [ -f /etc/debian_version ]; then
+    OS=Debian
+elif [ -f /etc/redhat-release ]; then
+    OS=Fedora
+fi
+
+if [ "$OS" = "Ubuntu" ]; then
+  alias update='sudo apt-get update && sudo apt-get upgrade'
+  alias install='sudo apt-get install'
+  alias remove='sudo apt-get remove'
+elif [ "$OS" = "Fedora" ]; then
+  alias update='sudo yum update'
+  alias install='sudo yum install'
+  alias remove='sudo yum remove'
+fi
+
 
 #######################################
 # 2. Prompt et définition des touches #
