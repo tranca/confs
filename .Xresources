@@ -1,0 +1,103 @@
+! Xft settings ---------------------------------------------------------------------------------------------------------------------
+Xft.dpi:                                96
+Xft.antialias:                          true
+Xft.rgba:                               rgb
+Xft.hinting:                            true
+Xft.hintstyle:                          hintslight
+
+! xterm ----------------------------------------------------------------------------------------------------------------------------
+xterm*foreground:                       grey75
+xterm*background:                       grey15
+xterm*cursorColor:                      LightSeaGreen
+xterm*scrollBar:                        false
+xterm*utf8:                             2
+xterm*termName:                         xterm-256color
+xterm*fading:                           30
+xterm.VT100.geometry:                   89x29
+xterm*saveLines:                        7777
+xterm*metaSendsEscape:                  true
+xterm*highlightSelection:               true
+xterm*trimSelection:                    true
+xterm*cutNewline:                       false
+xterm*colorBDMode:                      true
+xterm*colorBD:                          khaki
+xterm*charClass:                        3:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48,58:48,63:48,61:48,44:48,38:48,59:48
+
+! URxvt ----------------------------------------------------------------------------------------------------------------------------
+URxvt*foreground:                       grey75
+URxvt*background:                       [95]grey15
+URxvt*depth:                            32
+URxvt*cursorColor:                      LightSeaGreen
+URxvt*scrollBar:                        false
+URrvt*utf8:                             2
+URxvt*termName:                         rxvt-unicode-256color
+URxvt*fading:                           30
+URxvt*saveLines:                        7777
+URxvt*metaSendsEscape:                  true
+URxvt*highlightSelection:               true
+URxvt*trimSelection:                    true
+URxvt*cutNewline:                       false
+URxvt*colorBDMode:                      true
+URxvt*colorBD:                          khaki
+URxvt*loginShell:                       true
+URxvt*charClass:                        3:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48,58:48,63:48,61:48,44:48,38:48,59:48
+URxvt.perl-ext-common:                  default,matcher
+URxvt.url-launcher:                     /usr/bin/firefox
+!URxvt.colorUL:                          #FFFFFF Disabled because of command-coloring
+URxvt.matcher.button:                   1
+!URxvt -fn "xft:DejaVu Sans Mono:pixelsize=12"
+!Rxvt*font:                      -*-clean-medium-r-*--16-*-*-*-*-*-*-*
+!URxvt.boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12
+
+! colors  --------------------------------------------------------------------------------------------------------------------------
+!black
+URxvt*color0:                           #171717
+URxvt*color8:                           #737373
+!red
+URxvt*color1:                           #FF5E5E
+URxvt*color9:                           #FF7878
+!green
+URxvt*color2:                           #9CE82B
+URxvt*color10:                          #9ACD32
+!yellow
+URxvt*color3:                           #F0E68C
+URxvt*color11:                          #EEE8AA
+!blue
+URxvt*color4:                           #008AFF
+URxvt*color12:                          #4F98FF
+!magenta
+URxvt*color5:                           #E88CFF
+URxvt*color13:                          #EDA6FF
+!cyan
+URxvt*color6:                           #87CEFA
+URxvt*color14:                          #B0E2FF
+!white
+URxvt*color7:                           #DCDCCC
+URxvt*color15:                          #FFFFFF
+
+! colors  --------------------------------------------------------------------------------------------------------------------------
+!black
+xterm*color0:                           #171717
+xterm*color8:                           #737373
+!red
+xterm*color1:                           #FF5E5E
+xterm*color9:                           #FF7878
+!green
+xterm*color2:                           #9CE82B
+xterm*color10:                          #9ACD32
+!yellow
+xterm*color3:                           #F0E68C
+xterm*color11:                          #EEE8AA
+!blue
+xterm*color4:                           #008AFF
+xterm*color12:                          #4F98FF
+!magenta
+xterm*color5:                           #E88CFF
+xterm*color13:                          #EDA6FF
+!cyan
+xterm*color6:                           #87CEFA
+xterm*color14:                          #B0E2FF
+!white
+xterm*color7:                           #DCDCCC
+xterm*color15:                          #FFFFFF
+

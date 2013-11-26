@@ -1,19 +1,19 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+export DISABLE_AUTO_UPDATE="true"
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
-plugins=(git bower npm)
+plugins=(command-coloring git)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-export PATH=/usr/lib64/ccache:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/usr/sbin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/sbin:/home:/root/usr/bin:/usr/lib64/ccache:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/usr/sbin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/sbin:/opt/node/bin:/home/ptranca/Downloads/java/bin
-export RPROMPT='$(git_prompt_info)'
+export PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/usr/sbin:/usr/bin/X11:/sbin:/home:/root/usr/bin:/opt/node/bin:/home/ptranca/Downloads/java/bin
+
+#ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[magenta]%}"
+#ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}!"
+#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[green]%}?"
+#ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 ################
 # 1. Les alias #
@@ -69,19 +69,6 @@ fi
 # 2. Prompt et définition des touches #
 #######################################
 
-# Correspondance touches-fonction
-bindkey ''    beginning-of-line       # Home
-bindkey "\e[1~" beginning-of-line
-bindkey "\e[H"  beginning-of-line
-bindkey ''    end-of-line             # End
-bindkey "\e[4~" end-of-line
-bindkey "\e[F"  end-of-line
-bindkey ''    delete-char             # Del
-bindkey '[3~' delete-char
-bindkey '[2~' overwrite-mode          # Insert
-bindkey '[5~' history-search-backward # PgUp
-bindkey '[6~' history-search-forward  # PgDn
-
 # Prompt couleur (la couleur n'est pas la même pour le root et
 # pour les simples utilisateurs)
 if [ "`id -u`" -eq 0 ]; then
@@ -89,6 +76,8 @@ if [ "`id -u`" -eq 0 ]; then
 else
   export PROMPT="%{[36;1m%}%T %{[31m%}%n%{[33m%}@%{[37m%}%m %{[32m%}%~ %{[33m%}%#%{[0m%} "
 fi
+
+#export RPROMPT='$(git_prompt_info)'
 
 # Prise en charge des touches [début], [fin] et autres
 typeset -A key
@@ -108,18 +97,11 @@ key[PageDown]=${terminfo[knp]}
 [[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
 [[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
 [[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
-[[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
-[[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
+[[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      history-search-backward
+[[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    history-search-forward
 [[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
 [[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
 
-
-# Titre de la fenêtre d'un xterm
-case $TERM in
-   xterm*)
-       precmd () {print -Pn "\e]0;%n@%m: %~\a"}
-       ;;
-esac
 
 # Gestion de la couleur pour 'ls' (exportation de LS_COLORS)
 if [ -x /usr/bin/dircolors ]
@@ -144,16 +126,10 @@ fi
 unsetopt beep
 unsetopt hist_beep
 unsetopt list_beep
-# Ctrl+D est équivalent à 'logout'
-unsetopt ignore_eof
 # Affiche le code de sortie si différent de '0'
 setopt print_exit_value
 # Demande confirmation pour 'rm *'
 unsetopt rm_star_silent
-# Correction orthographique des commandes
-# Désactivé car, contrairement à ce que dit le "man", il essaye de
-# corriger les commandes avant de les hasher
-#setopt correct
 # Si on utilise des jokers dans une liste d'arguments, retire les jokers
 # qui ne correspondent à rien au lieu de donner une erreur
 setopt nullglob
@@ -186,7 +162,7 @@ setopt pushd_to_home
 
 # Les jobs qui tournent en tâche de fond sont nicé à '0'
 unsetopt bg_nice
-# N'envoie pas de "HUP" aux jobs qui tourent quand le shell se ferme
+# N'envoie pas de "HUP" aux jobs qui tournent quand le shell se ferme
 unsetopt hup
 
 
@@ -217,21 +193,31 @@ setopt hist_expire_dups_first
 # enregistrée
 setopt hist_find_no_dups
 
+################
+# 6. Git infos #
+################
 
-###########################################
-# 5. Complétion des options des commandes #
-###########################################
+setopt prompt_subst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' actionformats \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats       \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}'
-zstyle ':completion:*' max-errors 3 numeric
-zstyle ':completion:*' use-compctl false
+zstyle ':vcs_info:*' enable git cvs svn
 
-autoload -U compinit
-compinit
+# or use pre_cmd, see man zshcontrib
+vcs_info_wrapper() {
+  vcs_info
+  if [ -n "$vcs_info_msg_0_" ]; then
+    echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
+  fi
+}
+RPROMPT=$'$(vcs_info_wrapper)'
 
-###########################################
-# 6. Options supplémentaires              #
-###########################################
-
+##############################
+# 7. Options supplémentaires #
+##############################
 
 export EDITOR=vim
